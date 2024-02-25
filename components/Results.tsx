@@ -3,6 +3,7 @@ import Path from '@/components/Path'
 import React from 'react'
 
 import { ElementGraph, getPath } from '@/lib/utils'
+import { itemKeys } from '@/data/items'
 
 function Results({ item }: { item: string }) {
 	if (item === 'water' || item === 'fire' || item === 'earth' || item === 'wind') {
@@ -16,7 +17,19 @@ function Results({ item }: { item: string }) {
 			</div>
 		)
 	}
-	const path: ElementGraph | null = item ? getPath(item) : null
+	const isKey = itemKeys.includes(item)
+
+	if (!isKey) {
+		return (
+			<div className="flex justify-center">
+				<div className="text-center max-w-xl">
+					<h2 className="font-bold text-lg">{'The Recipe of ' + item + ' is not available'}</h2>
+				</div>
+			</div>
+		)
+	}
+
+	const path: ElementGraph | null = isKey ? getPath(item) : null
 
 	if (!path) {
 		return (

@@ -1,9 +1,12 @@
 import React, { Suspense } from 'react'
 import Results from '@/components/Results'
 import Head from 'next/head'
-import { SearchBar } from '../components/SearchBar' // Assuming you have a SearchBar component
+import { SearchBar } from '../components/SearchBar'
 
-export default async function Home({ item }: { item?: string }) {
+export default async function App({ params }: { params: any }) {
+	//parse item to string dandelion%20ale -> dandelion ale
+	const item = params ? params?.item?.replace(/%20/g, ' ') : null
+
 	const marginTopClass = item ? 'mt-5' : 'mt-60'
 	return (
 		<>
@@ -18,8 +21,7 @@ export default async function Home({ item }: { item?: string }) {
 					<p className="text-xl mt-4 text-center">Discover the fastest ways to craft your items</p>
 					<SearchBar item={item} />
 				</section>
-				{item && <Results item={item} />}
-				{/* <section>{item ? <Results item={item} /> }</section> */}
+				<section>{item && <Results item={item} />} </section>
 			</main>
 		</>
 	)

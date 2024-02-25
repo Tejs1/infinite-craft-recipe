@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { PopoverAnchor } from '@radix-ui/react-popover'
 import { useRouter } from 'next/navigation'
 import { itemKeys } from '@/data/items'
+import Link from 'next/link'
 
 export const SearchBar = ({ item }: { item?: string }) => {
 	const [query, setQuery] = useState(item ?? '')
@@ -42,26 +43,26 @@ export const SearchBar = ({ item }: { item?: string }) => {
 							/>
 						</div>
 					</PopoverAnchor>
-					<PopoverContent>
-						{itemKeys
-							.filter(item => item.toString().toLowerCase().includes(query.toLowerCase()))
-							.slice(0, 10)
-							.map(item => (
-								<div
-									key={item}
-									className="p-2  cursor-pointer"
-									onClick={() => {
-										setQuery(item)
-										setShowItems(false)
-										onSearch(item)
-									}}
-								>
-									{item}
-								</div>
+					{query && (
+						<PopoverContent>
+							{[
+								...Array.from(
+									new Set([
+										...itemKeys.filter(item => item.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5),
+										...itemKeys.filter(item => item.toLowerCase().includes(query.toLowerCase())).slice(0, 5),
+									]),
+								),
+							].map(item => (
+								<Link href={`/${item}`} key={item}>
+									<div key={item} className="p-2  cursor-pointer bg-white hover:bg-gray-100">
+										{item}
+									</div>
+								</Link>
 							))}
 
-						{itemKeys.length === 0 && <div className="p-2 text-center">No items found</div>}
-					</PopoverContent>
+							{itemKeys.length === 0 && <div className="p-2 text-center">No items found</div>}
+						</PopoverContent>
+					)}
 				</Popover>
 			</div>
 		</>
