@@ -1,48 +1,48 @@
 // const { items, itemKeys } = require('./items')
 
-const fs = require('fs')
-const writeToFile = (fileName, data) => {
-	const jsonData = JSON.stringify(data)
-	fs.writeFile(fileName, jsonData, err => {
-		console.log(err)
-	})
-}
+// const fs = require('fs')
+// const writeToFile = (fileName, data) => {
+// 	const jsonData = JSON.stringify(data)
+// 	fs.writeFile(fileName, jsonData, err => {
+// 		console.log(err)
+// 	})
+// }
 
-// writeToFile('itemKeys.js', itemKeys)
-//split txt file into smaller files
-const getChunks = (file, lineCount) =>
-	new Promise((resolve, reject) =>
-		fs.readFile(file, 'utf8', (err, data) => {
-			if (err) {
-				return reject(err)
-			}
-			const lines = data.trim().split('\n')
-			const chunks = []
-			for (let i = 0; i < lines.length; i += lineCount) {
-				chunks.push(lines.slice(i, i + lineCount))
-			}
-			return resolve(chunks)
-		}),
-	)
+// // writeToFile('itemKeys.js', itemKeys)
+// //split txt file into smaller files
+// const getChunks = (file, lineCount) =>
+// 	new Promise((resolve, reject) =>
+// 		fs.readFile(file, 'utf8', (err, data) => {
+// 			if (err) {
+// 				return reject(err)
+// 			}
+// 			const lines = data.trim().split('\n')
+// 			const chunks = []
+// 			for (let i = 0; i < lines.length; i += lineCount) {
+// 				chunks.push(lines.slice(i, i + lineCount))
+// 			}
+// 			return resolve(chunks)
+// 		}),
+// 	)
 
-const splitFileAndWrite = () => {
-	getChunks('itemKeys.txt', 1000).then(chunks => {
-		chunks.forEach((chunk, i) => {
-			writeToFile(`itemKeys-${i}.json`, chunk)
-		})
-	})
-}
+// const splitFileAndWrite = () => {
+// 	getChunks('itemKeys.txt', 1000).then(chunks => {
+// 		chunks.forEach((chunk, i) => {
+// 			writeToFile(`itemKeys-${i}.json`, chunk)
+// 		})
+// 	})
+// }
 
-//get cookies from storage
-const getCookies = () => {
-	const cookies = document.cookie.split(';')
-	const cookieObj = {}
-	cookies.forEach(cookie => {
-		const [key, value] = cookie.split('=')
-		cookieObj[key.trim()] = value
-	})
-	return cookieObj
-}
+// //get cookies from storage
+// const getCookies = () => {
+// 	const cookies = document.cookie.split(';')
+// 	const cookieObj = {}
+// 	cookies.forEach(cookie => {
+// 		const [key, value] = cookie.split('=')
+// 		cookieObj[key.trim()] = value
+// 	})
+// 	return cookieObj
+// }
 
 //combinations
 // first,second,result,emoji

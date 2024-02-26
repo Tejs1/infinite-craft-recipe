@@ -1,4 +1,4 @@
-const items: { [key: string]: string[] } = {
+export const items: { [key: string]: [string, string] } = {
 	'0': ['cancelled', 'number'],
 	'1': ['number', 'red'],
 	'2': ['1', 'c++'],
@@ -30887,6 +30887,3 @@ const items: { [key: string]: string[] } = {
 	zydeco: ['electric mardi gras', 'pearl'],
 	zynga: ['brick', 'farmville'],
 }
-
-type ItemKey = keyof typeof items
-const ItemKeys = Object.keys(items)

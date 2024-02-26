@@ -106,7 +106,7 @@ export async function upsertItem(result: string, first: string, second: string, 
 }
 
 //push all items to db
-export async function pushAllItems() {
+export async function pushAllItems(items: { [key: string]: [string, string] }) {
 	for (const item in items) {
 		const result = items[item]
 		await upsertItem(item, result[0], result[1], '🔥')
