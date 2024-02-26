@@ -148,6 +148,7 @@
 // 	})
 // 	return response.json()
 // }
-// const a = 'sake'
-// const b = 'flower'
+
+// const a = 'fire'
+// const b = 'goat'
 // fetchData(`https://neal.fun/api/infinite-craft/pair?first=${b}&second=${a}`).then(data => console.log(data))
