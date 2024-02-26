@@ -20,7 +20,6 @@ async function Results({ item }: { item: string }) {
 		)
 	}
 	const isKey = await findItem(item)
-	console.log(isKey)
 
 	if (!isKey) {
 		return (

@@ -11,8 +11,8 @@ function Item({ params }: { params: any }) {
 
 export default Item
 
-export async function generateStaticParams() {
-	return ['pebble', '2041', 'bhangra', 'everclear', 'zoologist'].map(key => ({
-		item: key,
-	}))
-}
+// export async function generateStaticParams() {
+// 	return ['pebble', '2041', 'bhangra', 'everclear', 'zoologist'].map(key => ({
+// 		item: key,
+// 	}))
+// }
