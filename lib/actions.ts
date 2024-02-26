@@ -12,7 +12,7 @@ async function traceElement(element: string, elementGraph: ElementGraph = {}): P
 
 	if (BASE_ARRAY.includes(element)) return null
 
-	let constituents = await findCombinationsFromJS(element)
+	let constituents = await findCombinationsFromDB(element)
 
 	elementGraph[element] = constituents
 
@@ -21,11 +21,11 @@ async function traceElement(element: string, elementGraph: ElementGraph = {}): P
 	return elementGraph
 }
 
-// export const findCombinationsFromJS = async (compound: string): Promise<string[]> => {
+// export const findCombinationsFromDB = async (compound: string): Promise<string[]> => {
 // 	const result = items[compound]
 // 	return result
 // }
-export const findCombinationsFromJS = async (compound: string): Promise<string[]> => {
+export const findCombinationsFromDB = async (compound: string): Promise<string[]> => {
 	const result = await getOneItem(compound)
 	if (result) {
 		return [result.first, result.second]
