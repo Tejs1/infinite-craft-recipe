@@ -1,9 +1,7 @@
 'use server'
 import db from '@/lib/db'
-import { items } from '@/data/items'
-import exp from 'constants'
 
-export const getPath = async (item: string) => {
+export const getPath = (item: string) => {
 	return traceElement(item)
 }
 export type ElementGraph = { [key: string]: string[] }
@@ -17,10 +15,9 @@ async function traceElement(element: string, elementGraph: ElementGraph = {}): P
 	let constituents = await findCombinationsFromJS(element)
 
 	elementGraph[element] = constituents
-	constituents.forEach(constituent => {
-		elementGraph[constituent] ? elementGraph[constituent] : traceElement(constituent, elementGraph)
-	})
 
+	//wait till all promises are resolved
+	await Promise.all(constituents.map(async constituent => await traceElement(constituent, elementGraph)))
 	return elementGraph
 }
 
@@ -29,14 +26,10 @@ async function traceElement(element: string, elementGraph: ElementGraph = {}): P
 // 	return result
 // }
 export const findCombinationsFromJS = async (compound: string): Promise<string[]> => {
-	const result = await getOneItem(compound).then(res => {
-		console.log('result', JSON.stringify(res))
-		return res
-	})
+	const result = await getOneItem(compound)
 	if (result) {
 		return [result.first, result.second]
 	}
-
 	return []
 }
 
@@ -59,11 +52,6 @@ export async function push({
 			emoji: emoji,
 		},
 	})
-}
-
-export async function getItems() {
-	const items = await db.result.findMany()
-	return items
 }
 
 export async function deleteItem(result: string) {
@@ -94,4 +82,107 @@ export async function getOneItem(result: string) {
 		},
 	})
 	return item
+}
+
+// update or create
+export async function upsertItem(result: string, first: string, second: string, emoji: string) {
+	const item = await db.result.upsert({
+		where: {
+			result: result,
+		},
+		update: {
+			first: first,
+			second: second,
+			emoji: emoji,
+		},
+		create: {
+			result: result,
+			first: first,
+			second: second,
+			emoji: emoji,
+		},
+	})
+	return item
+}
+
+//push all items to db
+export async function pushAllItems() {
+	for (const item in items) {
+		const result = items[item]
+		await upsertItem(item, result[0], result[1], '🔥')
+	}
+}
+export async function getAllItems() {
+	const items = await db.result.findMany()
+	return items
+}
+//get all items keys from db
+export async function getAllItemKeys() {
+	const items = await db.result.findMany({
+		select: {
+			result: true,
+		},
+	})
+
+	return items.map(item => item.result)
+}
+//find if item is in db
+export async function findItem(result: string) {
+	const item = await db.result.findUnique({
+		where: {
+			result: result,
+		},
+	})
+	return item ? true : false
+}
+
+export async function getMatchingItems(query: string) {
+	const items = await db.result.findMany({
+		where: {
+			OR: [
+				{
+					result: {
+						startsWith: query,
+					},
+				},
+				{
+					result: {
+						contains: query,
+					},
+				},
+			],
+		},
+		take: 10,
+	})
+	//return only result
+	return items.map(item => item.result)
+}
+
+export async function getMatchingItemKeys(query: string) {
+	console.log('query', query)
+	const startsWith = await db.result.findMany({
+		where: {
+			result: {
+				startsWith: query,
+			},
+		},
+		select: {
+			result: true,
+		},
+		take: 5,
+	})
+	const contains = await db.result.findMany({
+		where: {
+			result: {
+				contains: query,
+			},
+		},
+		select: {
+			result: true,
+		},
+		take: 5,
+	})
+
+	const set = new Set([...startsWith, ...contains].map(item => item.result))
+	return Array.from(set)
 }

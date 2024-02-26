@@ -1,6 +1,5 @@
 import App from '@/app/page'
 import React from 'react'
-import { ItemKeys } from '@/data/items'
 
 // export const runtime = 'edge'
 // export const fetchCache = 'force-no-store'

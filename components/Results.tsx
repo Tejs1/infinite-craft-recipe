@@ -2,9 +2,9 @@ import Path from '@/components/Path'
 
 import React from 'react'
 
-import { ElementGraph } from '@/lib/utils'
-import { ItemKeys } from '@/data/items'
-import { getPath, push } from '@/lib/actions'
+import { ElementGraph } from '@/lib/actions'
+import { findItem } from '@/lib/actions'
+import { getPath } from '@/lib/actions'
 
 async function Results({ item }: { item: string }) {
 	// push({ result: 'wd', first: 'wind', second: 'earth', emoji: '🌸' })
@@ -19,7 +19,8 @@ async function Results({ item }: { item: string }) {
 			</div>
 		)
 	}
-	const isKey = ItemKeys.includes(item)
+	const isKey = await findItem(item)
+	console.log(isKey)
 
 	if (!isKey) {
 		return (
