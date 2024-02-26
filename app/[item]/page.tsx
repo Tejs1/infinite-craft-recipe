@@ -32,9 +32,9 @@ function Item({ params }: { params: any }) {
 
 export default Item
 
-// export async function generateStaticParams() {
-// 	const itemList = await getAllItemKeys()
-// 	return itemList.map(key => ({
-// 		item: key,
-// 	}))
-// }
+export async function generateStaticParams() {
+	const itemList = await getAllItemKeys()
+	return itemList.map(key => ({
+		item: key,
+	}))
+}
