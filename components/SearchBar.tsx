@@ -1,14 +1,17 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Input } from './ui/input'
 import { Popover, PopoverContent } from './ui/popover'
 import { PopoverAnchor } from '@radix-ui/react-popover'
 import { useRouter } from 'next/navigation'
-import { ItemKeys } from '@/data/items'
 import Link from 'next/link'
+import { getMatchingItemKeys } from '@/lib/actions'
+import { debounce } from 'lodash'
 
 export const SearchBar = ({ item }: { item?: string }) => {
 	const [query, setQuery] = useState(item ?? '')
+	const [suggestions, setSuggestions] = useState<string[]>([])
+	const [isLoading, setIsLoading] = useState(false)
 	const [showItems, setShowItems] = useState(false)
 	const router = useRouter()
 	const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -20,6 +23,25 @@ export const SearchBar = ({ item }: { item?: string }) => {
 			setShowItems(false)
 		}
 	}
+	const debouncedGetMatchingItemKeys = debounce(
+		(query: string) => {
+			getMatchingItemKeys(query).then(data => {
+				setSuggestions(data)
+				setIsLoading(false)
+			})
+		},
+		300,
+		{ leading: false, trailing: true },
+	)
+	useEffect(() => {
+		if (query !== '') {
+			setIsLoading(true)
+			debouncedGetMatchingItemKeys(query)
+		}
+		return () => {
+			debouncedGetMatchingItemKeys.cancel()
+		}
+	}, [query])
 
 	return (
 		<>
@@ -46,26 +68,19 @@ export const SearchBar = ({ item }: { item?: string }) => {
 					</PopoverAnchor>
 					{query && (
 						<PopoverContent>
-							{[
-								...Array.from(
-									new Set([
-										...ItemKeys.filter(item => item.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5),
-										...ItemKeys.filter(item => item.toLowerCase().includes(query.toLowerCase())).slice(0, 5),
-									]),
-								),
-							].map(item => (
+							{suggestions.map(item => (
 								<Link href={`/${item}`} key={item}>
 									<div
 										key={item}
-										className="p-2  cursor-pointer bg-white hover:bg-gray-100"
+										className="py-2 px-2	 cursor-pointer bg-white hover:bg-gray-100"
 										onClick={() => setShowItems(false)}
 									>
 										{item}
 									</div>
 								</Link>
 							))}
-
-							{ItemKeys.length === 0 && <div className="p-2 text-center">No items found</div>}
+							{isLoading && <div className="p-2 text-center">Loading...</div>}
+							{suggestions.length === 0 && !isLoading && <div className="p-2 text-center">No items found</div>}
 						</PopoverContent>
 					)}
 				</Popover>

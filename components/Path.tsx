@@ -23,7 +23,9 @@ function Path({
 	return (
 		<div className="flex justify-center mt-4">
 			<div className="p-12 flex flex-col gap-6 justify-center border rounded-lg">
-				<h2 className="text-2xl font-bold">You&apos;ll need {steps.length} steps to craft this item:</h2>
+				<h2 className="text-2xl font-bold">
+					You&apos;ll need {steps.length} steps to craft {steps[0].result}
+				</h2>
 
 				<table className="w-full">
 					<tbody>
