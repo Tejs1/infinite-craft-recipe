@@ -27,7 +27,7 @@ function traceElement(element: string, elementGraph: ElementGraph = {}): Element
 	return elementGraph
 }
 
-const findCombinationsFromJS = (compound: string): string[] => {
+export const findCombinationsFromJS = (compound: string): string[] => {
 	const result = items[compound]
 	return result
 }

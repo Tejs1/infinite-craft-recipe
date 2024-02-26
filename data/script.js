@@ -1,4 +1,5 @@
-const { items } = require('./items')
+// const { items, itemKeys } = require('./items')
+
 const fs = require('fs')
 const writeToFile = (fileName, data) => {
 	const jsonData = JSON.stringify(data)
@@ -6,6 +7,8 @@ const writeToFile = (fileName, data) => {
 		console.log(err)
 	})
 }
+
+// writeToFile('itemKeys.js', itemKeys)
 //split txt file into smaller files
 const getChunks = (file, lineCount) =>
 	new Promise((resolve, reject) =>
@@ -76,14 +79,14 @@ const getCookies = () => {
 // Tsunami,Wind,Hurricane,'🌀'
 
 // convert items keys which are number to string
-const ItemWithKeyStringsAndArrayOfLowercaseStrings = Object.keys(items).reduce((acc, key) => {
-	const item = items[key]
+// const ItemWithKeyStringsAndArrayOfLowercaseStrings = Object.keys(items).reduce((acc, key) => {
+// 	const item = items[key]
 
-	const lowercaseItem = item.map(i => i.toLowerCase())
-	const keyString = key.toString().toLowerCase()
-	acc[keyString] = lowercaseItem
-	return acc
-}, {})
+// 	const lowercaseItem = item.map(i => i.toLowerCase())
+// 	const keyString = key.toString().toLowerCase()
+// 	acc[keyString] = lowercaseItem
+// 	return acc
+// }, {})
 // enum ELEMENTS {
 // 	Wind = 'Wind',
 // 	Earth = 'Earth',
@@ -97,3 +100,54 @@ const ItemWithKeyStringsAndArrayOfLowercaseStrings = Object.keys(items).reduce((
 // 	return acc
 // }, {})
 // writeToFile('itemKeys.txt', enumObject)
+
+// 11 requests
+// 525 kB transferred
+// 1.6 MB resources
+// Finish: 498 ms
+// DOMContentLoaded: 344 ms
+// Load: 460 ms
+
+//2041
+// 10 requests
+// 501 kB transferred
+// 1.6 MB resources
+// Finish: 108 ms
+// DOMContentLoaded: 51 ms
+// Load: 173 ms
+
+// pebbel
+// 10 requests
+// 499 kB transferred
+// 1.5 MB resources
+// Finish: 99 ms
+// DOMContentLoaded: 42 ms
+// Load: 156 ms
+
+// everclear
+// 10 requests
+// 4.5 kB transferred
+// 1.6 MB resources
+// Finish: 45 ms
+// DOMContentLoaded: 41 ms
+// Load: 150 ms
+
+// 10 requests
+// 7.6 kB transferred
+// 1.6 MB resources
+// Finish: 48 ms
+// DOMContentLoaded: 44 ms
+// Load: 107 ms
+
+// const fetchData = async url => {
+// 	const response = await fetch(url, {
+// 		headers: {
+// 			'User-Agent': 'Solver',
+// 			Referer: 'https://neal.fun/infinite-craft/',
+// 		},
+// 	})
+// 	return response.json()
+// }
+// const a = 'sake'
+// const b = 'flower'
+// fetchData(`https://neal.fun/api/infinite-craft/pair?first=${b}&second=${a}`).then(data => console.log(data))

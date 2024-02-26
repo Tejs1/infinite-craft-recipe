@@ -1,6 +1,6 @@
 import App from '@/app/page'
 import React from 'react'
-import { itemKeys } from '@/data/items'
+import { ItemKeys } from '@/data/items'
 
 // export const runtime = 'edge'
 // export const fetchCache = 'force-no-store'
@@ -13,7 +13,7 @@ function Item({ params }: { params: any }) {
 export default Item
 
 export async function generateStaticParams() {
-	return itemKeys.map(key => ({
+	return ['pebble', '2041', 'bhangra', 'everclear', 'zoologist'].map(key => ({
 		item: key,
 	}))
 }

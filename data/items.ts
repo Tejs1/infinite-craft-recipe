@@ -30889,4 +30889,4 @@ export const items: { [key: string]: string[] } = {
 }
 
 export type ItemKey = keyof typeof items
-export const itemKeys = Object.keys(items)
+export const ItemKeys = Object.keys(items)

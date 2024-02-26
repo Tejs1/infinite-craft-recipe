@@ -2,10 +2,12 @@ import Path from '@/components/Path'
 
 import React from 'react'
 
-import { ElementGraph, getPath } from '@/lib/utils'
-import { itemKeys } from '@/data/items'
+import { ElementGraph } from '@/lib/utils'
+import { ItemKeys } from '@/data/items'
+import { getPath, push } from '@/lib/actions'
 
-function Results({ item }: { item: string }) {
+async function Results({ item }: { item: string }) {
+	// push({ result: 'wd', first: 'wind', second: 'earth', emoji: '🌸' })
 	if (item === 'water' || item === 'fire' || item === 'earth' || item === 'wind') {
 		return (
 			<div className="flex justify-center">
@@ -17,7 +19,7 @@ function Results({ item }: { item: string }) {
 			</div>
 		)
 	}
-	const isKey = itemKeys.includes(item)
+	const isKey = ItemKeys.includes(item)
 
 	if (!isKey) {
 		return (
@@ -29,7 +31,7 @@ function Results({ item }: { item: string }) {
 		)
 	}
 
-	const path: ElementGraph | null = isKey ? getPath(item) : null
+	const path: ElementGraph | null = isKey ? await getPath(item) : null
 
 	if (!path) {
 		return (
