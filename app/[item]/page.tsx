@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
 	}
 }
 
-export const runtime = 'edge'
+// export const runtime = 'edge'
 export const fetchCache = 'force-cache'
 // export const dynamic = 'force-dynamic'
 

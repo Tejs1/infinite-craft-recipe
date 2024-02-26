@@ -21,11 +21,6 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={inter.className}>
 				<>
-					<Head>
-						<title>Infinite Craft Solver</title>
-						<meta name="description" content="Find the fastest crafting paths in Infinite Craft" />
-					</Head>
-
 					<main className="min-h-screen bg-gradient-radial bg-opacity-50 bg-cover bg-center flex flex-col items-center justify-start ">
 						<section className={` flex flex-col  items-center justify-center mt-3 `}>
 							<h1 className="text-4xl md:text-6xl font-bold text-center">Infinite Craft Recipes</h1>
