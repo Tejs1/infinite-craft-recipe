@@ -1,7 +1,7 @@
 import App from '@/app/page'
 import React from 'react'
 import { findCombinationsFromDB, getAllItemKeys } from '@/lib/actions'
-export const runtime = 'node'
+export const runtime = 'nodejs'
 export const fetchCache = 'force-cache'
 // export const dynamic = 'force-dynamic'
 import type { Metadata, ResolvingMetadata } from 'next'
