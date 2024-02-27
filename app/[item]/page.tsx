@@ -1,7 +1,9 @@
 import App from '@/app/page'
 import React from 'react'
 import { findCombinationsFromDB, getAllItemKeys } from '@/lib/actions'
-
+export const runtime = 'node'
+export const fetchCache = 'force-cache'
+// export const dynamic = 'force-dynamic'
 import type { Metadata, ResolvingMetadata } from 'next'
 
 type Props = {
@@ -22,19 +24,15 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
 	}
 }
 
-// export const runtime = 'edge'
-export const fetchCache = 'force-cache'
-// export const dynamic = 'force-dynamic'
-
 function Item({ params }: { params: any }) {
 	return <App params={params} />
 }
 
 export default Item
 
-export async function generateStaticParams() {
-	const itemList = await getAllItemKeys()
-	return itemList.map(key => ({
-		item: key,
-	}))
-}
+// export async function generateStaticParams() {
+// 	const itemList = await getAllItemKeys()
+// 	return itemList.map(key => ({
+// 		item: key,
+// 	}))
+// }
