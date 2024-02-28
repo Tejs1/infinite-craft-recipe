@@ -2,7 +2,7 @@
 import db from '@/lib/db'
 import { ElementGraph } from '@/types'
 
-export const getPath = (item: string) => {
+export const getPath = async (item: string) => {
 	return traceElement(item)
 }
 async function traceElement(element: string, elementGraph: ElementGraph = {}): Promise<ElementGraph | null> {

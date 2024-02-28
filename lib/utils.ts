@@ -1,10 +1,5 @@
 'use server'
-import { type ClassValue, clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
 
-export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs))
-}
 //replace url with env variable
 const SITE_URL = process.env.VERCEL_URL ? `http://${process.env.VERCEL_URL}` : 'http://localhost:3000'
 
