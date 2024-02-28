@@ -17,10 +17,6 @@ export const metadata: Metadata = {
 	creator: 'Tejas Thorat',
 	publisher: 'Sebastian Markbåge',
 	robots: 'index, follow',
-	themeColor: '#000000',
-	viewport: 'width=device-width, initial-scale=1.0',
-	manifest: '/manifest.json',
-	openGraph: { determiner: 'auto', type: 'website', images: 'https://example.com/og.png' },
 }
 
 export default function RootLayout({

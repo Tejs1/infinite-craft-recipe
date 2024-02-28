@@ -9,6 +9,7 @@ import { getMatchingItemKeys } from '@/lib/utils'
 import { debounce } from 'lodash'
 
 export const SearchBar = ({ item }: { item?: string }) => {
+	console.log('hello2', process.env.VERCEL_URL)
 	const [query, setQuery] = useState(item ?? '')
 	const [suggestions, setSuggestions] = useState<string[]>([])
 	const [isLoading, setIsLoading] = useState(false)
