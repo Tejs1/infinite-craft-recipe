@@ -1,5 +1,3 @@
-'use server'
-
 import { items } from '@/data/items'
 import { ElementGraph } from '@/types'
 const keys = Object.keys(items)
