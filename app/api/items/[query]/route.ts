@@ -26,6 +26,6 @@ export const GET = async (request: Request, { params }: { params: { query: strin
 
 	const set = new Set([...startsWithArray, ...includesArray])
 
-	const res = JSON.stringify({ data: Array.from(set) })
+	const res = { data: Array.from(set) }
 	return NextResponse.json(res)
 }

@@ -2,7 +2,7 @@ import { items } from '@/data/items'
 import { NextResponse } from 'next/server'
 
 export const GET = async () => {
-	const res = JSON.stringify({ data: Object.keys(items) })
+	const res = { data: Object.keys(items) }
 	return NextResponse.json(res)
 }
 
