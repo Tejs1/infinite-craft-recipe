@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { debounce } from 'lodash'
 import { SITE_URL } from '@/lib/utils'
-export async function getMatchingItemKeys(query: string) {
+async function getMatchingItemKeys(query: string) {
 	const items = await fetch(`${SITE_URL}/api/items/${query}`)
 	return items.json()
 }
