@@ -9,7 +9,7 @@ import { debounce } from 'lodash'
 import { SITE_URL } from '@/lib/utils'
 async function getMatchingItemKeys(query: string) {
 	const items = await fetch(`${SITE_URL}/api/items/${query}`)
-	return items.json()
+	return items
 }
 
 export const SearchBar = ({ item }: { item?: string }) => {
@@ -31,7 +31,8 @@ export const SearchBar = ({ item }: { item?: string }) => {
 	const debouncedGetMatchingItemKeys = debounce(
 		(query: string) => {
 			getMatchingItemKeys(query)
-				.then(res => JSON.parse(res))
+				.then(res => res.json())
+				.then(data => JSON.parse(data))
 				.then(data => {
 					setSuggestions(data.data)
 					setIsLoading(false)

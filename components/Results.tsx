@@ -5,10 +5,12 @@ import { SITE_URL } from '@/lib/utils'
 import Path from '@/components/Path'
 async function getRecipe(query: string) {
 	const recipe = await fetch(`${SITE_URL}/api/recipe/${query}`)
-	return recipe.json()
+	return recipe
 }
 async function Results({ item }: { item: string }) {
-	const recipe = await getRecipe(item).then(res => JSON.parse(res))
+	const recipe = await getRecipe(item)
+		.then(res => res.json())
+		.then(data => JSON.parse(data))
 
 	const path: ElementGraph | null = recipe.data
 

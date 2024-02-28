@@ -8,9 +8,8 @@ import type { Metadata, ResolvingMetadata } from 'next'
 import { SITE_URL } from '@/lib/utils'
 async function findItemConstituents(query: string) {
 	const item = await fetch(`${SITE_URL}/api/item/${query}`)
-	return item.json()
+	return item
 }
-
 type Props = {
 	params: { item: string }
 }
@@ -18,7 +17,10 @@ type Props = {
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
 	const item = params.item.replace(/%20/g, ' ')
 
-	const data = await findItemConstituents(item).then(res => JSON.parse(res))
+	const data = await findItemConstituents(item)
+		.then(res => res.json())
+		.then(data => JSON.parse(data))
+		.catch(err => console.error(err))
 
 	return {
 		title: `Infinite Craft ` + item,
