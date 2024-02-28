@@ -8,7 +8,7 @@ async function getRecipe(query: string) {
 	return recipe.json()
 }
 async function Results({ item }: { item: string }) {
-	const recipe = await getRecipe(item)
+	const recipe = await getRecipe(item).then(res => JSON.parse(res))
 
 	const path: ElementGraph | null = recipe.data
 
@@ -17,7 +17,6 @@ async function Results({ item }: { item: string }) {
 			<div className="flex justify-center">
 				<div className="text-center max-w-xl">
 					<h2 className="font-bold text-lg">{item.toUpperCase()}</h2>
-
 					<div className="text-zinc-500 font-medium text-sm mt-3">{item + ' is A Basic Element'}</div>
 				</div>
 			</div>
@@ -32,7 +31,6 @@ async function Results({ item }: { item: string }) {
 						<h2 className="font-bold text-lg">{'The Recipe of ' + item + ' is not available'}</h2>
 					</div>
 				</div>
-				\
 			</Suspense>
 		)
 	}

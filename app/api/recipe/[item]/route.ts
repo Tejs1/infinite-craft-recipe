@@ -4,7 +4,7 @@ import { ElementGraph } from '@/types'
 
 export const GET = async (request: Request, { params }: { params: { item: string } }) => {
 	const path = await getPath(params.item)
-	const res = { data: path }
+	const res = JSON.stringify({ data: path })
 	return NextResponse.json(res)
 }
 

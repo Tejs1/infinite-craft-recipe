@@ -30,10 +30,12 @@ export const SearchBar = ({ item }: { item?: string }) => {
 	}
 	const debouncedGetMatchingItemKeys = debounce(
 		(query: string) => {
-			getMatchingItemKeys(query).then(data => {
-				setSuggestions(data.data)
-				setIsLoading(false)
-			})
+			getMatchingItemKeys(query)
+				.then(res => JSON.parse(res))
+				.then(data => {
+					setSuggestions(data.data)
+					setIsLoading(false)
+				})
 		},
 		300,
 		{ leading: false, trailing: true },

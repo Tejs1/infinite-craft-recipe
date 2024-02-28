@@ -18,7 +18,7 @@ type Props = {
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
 	const item = params.item.replace(/%20/g, ' ')
 
-	const data = await findItemConstituents(item)
+	const data = await findItemConstituents(item).then(res => JSON.parse(res))
 
 	return {
 		title: `Infinite Craft ` + item,
