@@ -2,22 +2,22 @@
 // import { ElementGraph } from '@/types'
 // const keys = Object.keys(items)
 //replace url with env variable
-const SITE_URL = process.env.VERCEL_URL ? `http://${process.env.VERCEL_URL}` : 'http://localhost:3000'
+export const SITE_URL = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
 
-export async function getMatchingItemKeys(query: string) {
-	const items = await fetch(`${SITE_URL}/api/items/${query}`)
-	return items.json()
-}
+// export async function getMatchingItemKeys(query: string) {
+// 	const items = await fetch(`${SITE_URL}/api/items/${query}`)
+// 	return items.json()
+// }
 
-export async function getRecipe(query: string) {
-	const recipe = await fetch(`${SITE_URL}/api/recipe/${query}`)
-	return recipe.json()
-}
+// export async function getRecipe(query: string) {
+// 	const recipe = await fetch(`${SITE_URL}/api/recipe/${query}`)
+// 	return recipe.json()
+// }
 
-export async function findItemConstituents(query: string) {
-	const item = await fetch(`${SITE_URL}/api/item/${query}`)
-	return item.json()
-}
+// export async function findItemConstituents(query: string) {
+// 	const item = await fetch(`${SITE_URL}/api/item/${query}`)
+// 	return item.json()
+// }
 
 // export const getAllItemKeys = async () => {
 // 	return { keys }

@@ -5,7 +5,11 @@ export const runtime = 'nodejs'
 export const fetchCache = 'force-cache'
 // export const dynamic = 'force-dynamic'
 import type { Metadata, ResolvingMetadata } from 'next'
-import { findItemConstituents } from '@/lib/utils'
+import { SITE_URL } from '@/lib/utils'
+export async function findItemConstituents(query: string) {
+	const item = await fetch(`${SITE_URL}/api/item/${query}`)
+	return item.json()
+}
 
 type Props = {
 	params: { item: string }

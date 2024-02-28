@@ -5,8 +5,12 @@ import { Popover, PopoverContent } from './ui/popover'
 import { PopoverAnchor } from '@radix-ui/react-popover'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { getMatchingItemKeys } from '@/lib/utils'
 import { debounce } from 'lodash'
+import { SITE_URL } from '@/lib/utils'
+export async function getMatchingItemKeys(query: string) {
+	const items = await fetch(`${SITE_URL}/api/items/${query}`)
+	return items.json()
+}
 
 export const SearchBar = ({ item }: { item?: string }) => {
 	console.log('hello2', process.env.VERCEL_URL)
