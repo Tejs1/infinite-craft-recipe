@@ -11,6 +11,7 @@ export default async function App({ params }: { params: any }) {
 				<SearchBar item={item} />
 			</section>
 			<section>{item && <Results item={item} />} </section>
+			<h3>{process.env.VERCEL_URL}</h3>
 		</>
 	)
 }

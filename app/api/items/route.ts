@@ -1,9 +1,8 @@
-import { getAllItemKeys } from '@/lib/utils'
+import { items } from '@/data/items'
 import { NextResponse } from 'next/server'
 
 export const GET = async () => {
-	const data = await getAllItemKeys()
-	const res = { data: data }
+	const res = { data: Object.keys(items) }
 	return NextResponse.json(res)
 }
 
