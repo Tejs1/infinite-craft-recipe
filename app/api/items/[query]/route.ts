@@ -4,5 +4,5 @@ import { findKeys } from '@/lib/utils'
 export const GET = async (request: Request, { params }: { params: { query: string } }) => {
 	const data = await findKeys(params.query)
 	const res = { data: data }
-	return NextResponse.json({ res })
+	return NextResponse.json(res)
 }

@@ -3,7 +3,6 @@ import Results from '@/components/Results'
 import { SearchBar } from '../components/SearchBar'
 
 export default async function App({ params }: { params: any }) {
-	//parse item to string dandelion%20ale -> dandelion ale
 	const item = params ? params?.item?.replace(/%20/g, ' ') : null
 	console.log('hello', process.env.VERCEL_URL)
 	return (

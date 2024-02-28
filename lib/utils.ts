@@ -27,7 +27,7 @@ export const getAllItemKeys = async () => {
 
 export const findKeys = async (query: string) => {
 	//filter only 1st 5 items
-
+	if (!query) return []
 	let i = 0
 	let j = 0
 	const includesArray = []

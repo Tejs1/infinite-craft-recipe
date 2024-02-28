@@ -27,7 +27,7 @@ export const SearchBar = ({ item }: { item?: string }) => {
 	const debouncedGetMatchingItemKeys = debounce(
 		(query: string) => {
 			getMatchingItemKeys(query).then(data => {
-				setSuggestions(data.res.data)
+				setSuggestions(data.data)
 				setIsLoading(false)
 			})
 		},
@@ -35,7 +35,7 @@ export const SearchBar = ({ item }: { item?: string }) => {
 		{ leading: false, trailing: true },
 	)
 	useEffect(() => {
-		if (query !== '') {
+		if (!!query) {
 			setIsLoading(true)
 			debouncedGetMatchingItemKeys(query)
 		}
