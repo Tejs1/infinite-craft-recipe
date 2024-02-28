@@ -3,7 +3,8 @@ import { NextResponse } from 'next/server'
 
 export const GET = async () => {
 	const data = await getAllItemKeys()
-	return NextResponse.json({ data })
+	const res = { data: data }
+	return NextResponse.json({ res })
 }
 
 // export const POST = async (request: Request) => {

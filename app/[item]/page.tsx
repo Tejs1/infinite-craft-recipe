@@ -13,15 +13,18 @@ type Props = {
 
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
 	const item = params.item.replace(/%20/g, ' ')
-	console.log('item', item)
-	const { constituents: result } = await findItemConstituents(item)
+
+	const { res } = await findItemConstituents(item)
+
+	const { data: constituents } = res
+	const [constituent1, constituent2] = constituents
 
 	return {
 		title: `Infinite Craft ` + item,
 		// openGraph: {
 		// 	images: ['/some-specific-page-image.jpg', ...previousImages],
 		// },
-		description: `Infinite Craft ${item} from ${result[0]} + ${result[1]}`,
+		description: `Infinite Craft ${item} from ${constituent1} + ${constituent2}`,
 	}
 }
 

@@ -5,7 +5,8 @@ import Path from '@/components/Path'
 
 async function Results({ item }: { item: string }) {
 	const recipe = await getRecipe(item)
-	const path: ElementGraph | null = recipe.path
+
+	const path: ElementGraph | null = recipe.res.data
 
 	if (item === 'water' || item === 'fire' || item === 'earth' || item === 'wind') {
 		return (
