@@ -5,7 +5,7 @@ import { Popover, PopoverContent } from './ui/popover'
 import { PopoverAnchor } from '@radix-ui/react-popover'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { getMatchingItemKeys } from '@/lib/actions'
+import { getMatchingItemKeys } from '@/lib/utils'
 import { debounce } from 'lodash'
 
 export const SearchBar = ({ item }: { item?: string }) => {
@@ -26,7 +26,7 @@ export const SearchBar = ({ item }: { item?: string }) => {
 	const debouncedGetMatchingItemKeys = debounce(
 		(query: string) => {
 			getMatchingItemKeys(query).then(data => {
-				setSuggestions(data)
+				setSuggestions(data.data)
 				setIsLoading(false)
 			})
 		},
@@ -73,7 +73,10 @@ export const SearchBar = ({ item }: { item?: string }) => {
 									<div
 										key={item}
 										className="py-2 px-2	 cursor-pointer bg-white hover:bg-gray-100"
-										onClick={() => setShowItems(false)}
+										onClick={() => {
+											setShowItems(false)
+											setQuery(item)
+										}}
 									>
 										{item}
 									</div>

@@ -1,10 +1,10 @@
 'use server'
 import db from '@/lib/db'
+import { ElementGraph } from '@/types'
 
 export const getPath = (item: string) => {
 	return traceElement(item)
 }
-export type ElementGraph = { [key: string]: string[] }
 async function traceElement(element: string, elementGraph: ElementGraph = {}): Promise<ElementGraph | null> {
 	const BASE_ARRAY = ['wind', 'earth', 'fire', 'water']
 
@@ -13,6 +13,7 @@ async function traceElement(element: string, elementGraph: ElementGraph = {}): P
 	if (BASE_ARRAY.includes(element)) return null
 
 	let constituents = await findCombinationsFromDB(element)
+	if (!constituents || constituents.length === 0) return null
 
 	elementGraph[element] = constituents
 
@@ -81,6 +82,7 @@ export async function getOneItem(result: string) {
 			result: result,
 		},
 	})
+
 	return item
 }
 
@@ -159,7 +161,6 @@ export async function getMatchingItems(query: string) {
 }
 
 export async function getMatchingItemKeys(query: string) {
-	console.log('query', query)
 	const startsWith = await db.result.findMany({
 		where: {
 			result: {

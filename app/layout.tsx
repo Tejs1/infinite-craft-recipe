@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Head from 'next/head'
 
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -10,6 +9,18 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
 	title: 'Infinite Craft Solver',
 	description: 'Find the fastest crafting paths in Infinite Craft',
+	generator: 'Next.js',
+	applicationName: 'Infinite Craft Solver',
+	referrer: 'origin-when-cross-origin',
+	keywords: ['Infinite ', 'Recipe', 'Craft Solver', 'Infinite Craft Recipe'],
+	authors: [{ name: 'Tejas' }, { name: 'Tejas', url: 'https://twitter.com/tejsrelax' }],
+	creator: 'Tejas Thorat',
+	publisher: 'Sebastian Markbåge',
+	robots: 'index, follow',
+	themeColor: '#000000',
+	viewport: 'width=device-width, initial-scale=1.0',
+	manifest: '/manifest.json',
+	openGraph: { determiner: 'auto', type: 'website', images: 'https://example.com/og.png' },
 }
 
 export default function RootLayout({

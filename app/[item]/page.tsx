@@ -5,6 +5,7 @@ export const runtime = 'nodejs'
 export const fetchCache = 'force-cache'
 // export const dynamic = 'force-dynamic'
 import type { Metadata, ResolvingMetadata } from 'next'
+import { findItemConstituents } from '@/lib/utils'
 
 type Props = {
 	params: { item: string }
@@ -13,7 +14,7 @@ type Props = {
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
 	// read route params
 	const item = params.item
-	const result = await findCombinationsFromDB(item)
+	const result = await findItemConstituents(item)
 
 	return {
 		title: `Infinite Craft ` + item,
