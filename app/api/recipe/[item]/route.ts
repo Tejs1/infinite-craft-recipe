@@ -3,7 +3,7 @@ import { items } from '@/data/items'
 import { ElementGraph } from '@/types'
 
 export const GET = async (request: Request, { params }: { params: { item: string } }) => {
-	const path = await getPath(params.item)
+	const path = getPath(params.item)
 	const res = { data: path }
 	return NextResponse.json(res)
 }
