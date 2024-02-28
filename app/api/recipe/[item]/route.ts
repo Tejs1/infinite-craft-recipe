@@ -8,7 +8,7 @@ export const GET = async (request: Request, { params }: { params: { item: string
 	return NextResponse.json(res)
 }
 
-export const getPath = (item: string) => {
+const getPath = (item: string) => {
 	return traceElement(item)
 }
 function traceElement(element: string, elementGraph: ElementGraph = {}): ElementGraph | null {
@@ -28,7 +28,7 @@ function traceElement(element: string, elementGraph: ElementGraph = {}): Element
 	return elementGraph
 }
 
-export const findCombinationsFromDB = (compound: string): string[] => {
+const findCombinationsFromDB = (compound: string): string[] => {
 	const result = items[compound]
 	return result
 }
