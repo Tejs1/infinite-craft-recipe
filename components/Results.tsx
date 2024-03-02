@@ -8,9 +8,7 @@ async function getRecipe(query: string) {
 	return recipe
 }
 async function Results({ item }: { item: string }) {
-	const recipe = await getRecipe(item)
-		.then(res => res.json())
-		.then(data => JSON.parse(data))
+	const recipe = await getRecipe(item).then(res => res.json())
 
 	const path: ElementGraph | null = recipe.data
 

@@ -19,7 +19,6 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
 
 	const data = await findItemConstituents(item)
 		.then(res => res.json())
-		.then(data => JSON.parse(data))
 		.catch(err => console.error(err))
 
 	return {

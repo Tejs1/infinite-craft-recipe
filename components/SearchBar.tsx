@@ -32,7 +32,6 @@ export const SearchBar = ({ item }: { item?: string }) => {
 		(query: string) => {
 			getMatchingItemKeys(query)
 				.then(res => res.json())
-				.then(data => JSON.parse(data))
 				.then(data => {
 					setSuggestions(data.data)
 					setIsLoading(false)
