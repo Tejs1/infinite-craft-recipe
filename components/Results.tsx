@@ -4,7 +4,7 @@ import { ElementGraph } from '@/types'
 import { SITE_URL } from '@/lib/utils'
 import Path from '@/components/Path'
 async function getRecipe(query: string) {
-	const recipe = await fetch(`${SITE_URL}/api/recipe/${query}`)
+	const recipe = await fetch(`/api/recipe/${query}`)
 	return recipe
 }
 async function Results({ item }: { item: string }) {

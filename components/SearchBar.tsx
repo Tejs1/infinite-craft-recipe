@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { debounce } from 'lodash'
 import { SITE_URL } from '@/lib/utils'
 async function getMatchingItemKeys(query: string) {
-	const items = await fetch(`${SITE_URL}/api/items/${query}`)
+	const items = await fetch(`/api/items/${query}`)
 	return items
 }
 
