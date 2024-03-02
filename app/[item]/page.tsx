@@ -7,7 +7,7 @@ export const fetchCache = 'force-cache'
 import type { Metadata, ResolvingMetadata } from 'next'
 import { SITE_URL } from '@/lib/utils'
 async function findItemConstituents(query: string) {
-	const item = await fetch(`/api/item/${query}`)
+	const item = await fetch(`${SITE_URL}/api/item/${query}`)
 	return item
 }
 type Props = {
