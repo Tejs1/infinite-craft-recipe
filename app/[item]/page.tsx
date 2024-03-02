@@ -1,26 +1,33 @@
 import App from '@/app/page'
 import React from 'react'
-import { findCombinationsFromDB, getAllItemKeys } from '@/lib/actions'
+
 export const runtime = 'nodejs'
 export const fetchCache = 'force-cache'
 // export const dynamic = 'force-dynamic'
 import type { Metadata, ResolvingMetadata } from 'next'
-
+import { SITE_URL } from '@/lib/utils'
+async function findItemConstituents(query: string) {
+	const item = await fetch(`${SITE_URL}/api/item/${query}`)
+	return item
+}
 type Props = {
 	params: { item: string }
 }
 
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
-	// read route params
-	const item = params.item
-	const result = await findCombinationsFromDB(item)
+	const item = params.item.replace(/%20/g, ' ')
+
+	const data = await findItemConstituents(item)
+		.then(res => res.json())
+		.then(data => JSON.parse(data))
+		.catch(err => console.error(err))
 
 	return {
 		title: `Infinite Craft ` + item,
 		// openGraph: {
 		// 	images: ['/some-specific-page-image.jpg', ...previousImages],
 		// },
-		description: `To craft ${item} is ${result[0]} + ${result[1]} in Infinite Craft	`,
+		description: `Infinite Craft ${item} from ${data?.data[0]} + ${data?.data[1]}`,
 	}
 }
 

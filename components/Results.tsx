@@ -1,45 +1,39 @@
+import React, { Suspense } from 'react'
+import { ElementGraph } from '@/types'
+// import { getRecipe } from '@/lib/utils'
+import { SITE_URL } from '@/lib/utils'
 import Path from '@/components/Path'
-
-import React from 'react'
-
-import { ElementGraph } from '@/lib/actions'
-import { findItem } from '@/lib/actions'
-import { getPath } from '@/lib/actions'
-
+async function getRecipe(query: string) {
+	const recipe = await fetch(`${SITE_URL}/api/recipe/${query}`)
+	return recipe
+}
 async function Results({ item }: { item: string }) {
-	// push({ result: 'wd', first: 'wind', second: 'earth', emoji: '🌸' })
+	const recipe = await getRecipe(item)
+		.then(res => res.json())
+		.then(data => JSON.parse(data))
+
+	const path: ElementGraph | null = recipe.data
+
 	if (item === 'water' || item === 'fire' || item === 'earth' || item === 'wind') {
 		return (
 			<div className="flex justify-center">
 				<div className="text-center max-w-xl">
 					<h2 className="font-bold text-lg">{item.toUpperCase()}</h2>
-
 					<div className="text-zinc-500 font-medium text-sm mt-3">{item + ' is A Basic Element'}</div>
 				</div>
 			</div>
 		)
 	}
-	const isKey = await findItem(item)
 
-	if (!isKey) {
+	if (!path || Object.keys(path).length === 0 || path[Object.keys(path)[0]].length === 0) {
 		return (
-			<div className="flex justify-center">
-				<div className="text-center max-w-xl">
-					<h2 className="font-bold text-lg">{'The Recipe of ' + item + ' is not available'}</h2>
+			<Suspense fallback={<div>Loading...</div>}>
+				<div className="flex justify-center">
+					<div className="text-center max-w-xl">
+						<h2 className="font-bold text-lg">{'The Recipe of ' + item + ' is not available'}</h2>
+					</div>
 				</div>
-			</div>
-		)
-	}
-
-	const path: ElementGraph | null = isKey ? await getPath(item) : null
-
-	if (!path) {
-		return (
-			<div className="flex justify-center">
-				<div className="text-center max-w-xl">
-					<h2 className="font-bold text-lg">Error</h2>
-				</div>
-			</div>
+			</Suspense>
 		)
 	}
 
@@ -48,7 +42,7 @@ async function Results({ item }: { item: string }) {
 	})
 
 	return (
-		<>
+		<Suspense fallback={<div>Loading...</div>}>
 			{!path && (
 				<div className="flex justify-center">
 					<div className="text-center max-w-xl">
@@ -62,7 +56,7 @@ async function Results({ item }: { item: string }) {
 				</div>
 			)}
 			{path && <Path steps={stepsArray} />}
-		</>
+		</Suspense>
 	)
 }
 

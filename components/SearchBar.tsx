@@ -5,10 +5,15 @@ import { Popover, PopoverContent } from './ui/popover'
 import { PopoverAnchor } from '@radix-ui/react-popover'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { getMatchingItemKeys } from '@/lib/actions'
 import { debounce } from 'lodash'
+import { SITE_URL } from '@/lib/utils'
+async function getMatchingItemKeys(query: string) {
+	const items = await fetch(`${SITE_URL}/api/items/${query}`)
+	return items
+}
 
 export const SearchBar = ({ item }: { item?: string }) => {
+	console.log('hello2', process.env.VERCEL_URL)
 	const [query, setQuery] = useState(item ?? '')
 	const [suggestions, setSuggestions] = useState<string[]>([])
 	const [isLoading, setIsLoading] = useState(false)
@@ -25,16 +30,19 @@ export const SearchBar = ({ item }: { item?: string }) => {
 	}
 	const debouncedGetMatchingItemKeys = debounce(
 		(query: string) => {
-			getMatchingItemKeys(query).then(data => {
-				setSuggestions(data)
-				setIsLoading(false)
-			})
+			getMatchingItemKeys(query)
+				.then(res => res.json())
+				.then(data => JSON.parse(data))
+				.then(data => {
+					setSuggestions(data.data)
+					setIsLoading(false)
+				})
 		},
 		300,
 		{ leading: false, trailing: true },
 	)
 	useEffect(() => {
-		if (query !== '') {
+		if (!!query) {
 			setIsLoading(true)
 			debouncedGetMatchingItemKeys(query)
 		}
@@ -73,7 +81,10 @@ export const SearchBar = ({ item }: { item?: string }) => {
 									<div
 										key={item}
 										className="py-2 px-2	 cursor-pointer bg-white hover:bg-gray-100"
-										onClick={() => setShowItems(false)}
+										onClick={() => {
+											setShowItems(false)
+											setQuery(item)
+										}}
 									>
 										{item}
 									</div>
