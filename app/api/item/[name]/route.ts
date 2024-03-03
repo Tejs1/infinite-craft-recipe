@@ -6,7 +6,7 @@ export const GET = (request: Request, { params }: { params: { name: string } }) 
 	return NextResponse.json(res)
 }
 
-export const items: { [key: string]: [string, string] } = {
+const items: { [key: string]: [string, string] } = {
 	'0': ['cancelled', 'number'],
 	'1': ['number', 'red'],
 	'2': ['1', 'c++'],

@@ -32,7 +32,7 @@ const findCombinationsFromDB = (compound: string): string[] => {
 	return result
 }
 
-export const items: { [key: string]: [string, string] } = {
+const items: { [key: string]: [string, string] } = {
 	'0': ['cancelled', 'number'],
 	'1': ['number', 'red'],
 	'2': ['1', 'c++'],
