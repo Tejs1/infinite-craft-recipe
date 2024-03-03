@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import Results from '@/components/Results'
-import { SearchBar } from '../components/SearchBar'
+import { SearchBar } from '@/components/SearchBar'
 
 import { SITE_URL } from '@/lib/utils'
 export default async function App({ item }: { item: string }) {

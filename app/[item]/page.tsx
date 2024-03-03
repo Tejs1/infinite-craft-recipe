@@ -1,8 +1,6 @@
-import App from '@/app/page'
-import React from 'react'
+// import App from '@/app/page'
+import React, { Suspense } from 'react'
 
-export const runtime = 'nodejs'
-export const fetchCache = 'force-cache'
 // export const dynamic = 'force-dynamic'
 // import type { Metadata, ResolvingMetadata } from 'next'
 // import { SITE_URL } from '@/lib/utils'
@@ -24,12 +22,33 @@ export const fetchCache = 'force-cache'
 // 	}
 // }
 
-function Item({ params }: { params: { item: string } }) {
-	const item = decodeURIComponent(params.item)
-	return <App item={item} />
-}
+import Results from '@/components/Results'
+import { SearchBar } from '@/components/SearchBar'
 
-export default Item
+import { SITE_URL } from '@/lib/utils'
+export default async function App({ item }: { item: string }) {
+	console.log(
+		'VERCEL_URL',
+		process.env.VERCEL_URL,
+		'NEXT_PUBLIC_VERCEL_URL',
+		process.env.NEXT_PUBLIC_VERCEL_URL,
+		'NEXT_PUBLIC_SITE_URL',
+		process.env.NEXT_PUBLIC_SITE_URL,
+		'SITE_URL',
+		SITE_URL,
+	)
+	return (
+		<>
+			<section className="w-full flex justify-center items-center flex-col">
+				<SearchBar item={item} />
+			</section>
+			<Suspense fallback={<div>Loading...</div>}>
+				<section className="w-full flex justify-center items-center">{item && <Results item={item} />} </section>
+			</Suspense>
+			<h3>{process.env.VERCEL_URL}</h3>
+		</>
+	)
+}
 
 // export async function generateStaticParams() {
 // 	const itemList = await getAllItemKeys()
