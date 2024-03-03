@@ -46,7 +46,12 @@ export default async function Page({ params }: { params: { item: string } }) {
 			<Suspense fallback={<div>Loading...</div>}>
 				<section className="w-full flex justify-center items-center">{item && <Results item={item} />} </section>
 			</Suspense>
-			<h3>{process.env.VERCEL_URL}</h3>
+			<h3>{`VERCEL_URL : ` + process.env.VERCEL_URL}</h3>
+			<h3>{`NEXT_PUBLIC_VERCEL_URL : ` + process.env.NEXT_PUBLIC_VERCEL_URL}</h3>
+			<h3>{`NEXT_PUBLIC_SITE_URL : ` + process.env.NEXT_PUBLIC_SITE_URL}</h3>
+			<h3>{`SITE_URL : ` + SITE_URL}</h3>
+			<h3>{`NODE_ENV : ` + process.env.NODE_ENV}</h3>
+			<h3>{`MY_ENV : ` + process.env.MY_ENV}</h3>
 		</>
 	)
 }
