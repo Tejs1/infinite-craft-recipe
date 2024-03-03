@@ -4,9 +4,11 @@ import { ElementGraph } from '@/types'
 import { SITE_URL } from '@/lib/utils'
 import Path from '@/components/Path'
 async function Results({ item }: { item: string }) {
-	const recipe = await fetch(`${SITE_URL}/api/recipe/${item}`).then(res => res.json())
+	const recipe = await fetch(`${SITE_URL}/api/recipe/${item}`)
+	const data = await recipe.json()
+	console.log('recipe', data)
 
-	const path: ElementGraph | null = recipe.data
+	const path: ElementGraph | null = data.data
 
 	if (item === 'water' || item === 'fire' || item === 'earth' || item === 'wind') {
 		return (
@@ -21,13 +23,11 @@ async function Results({ item }: { item: string }) {
 
 	if (!path || Object.keys(path).length === 0 || path[Object.keys(path)[0]].length === 0) {
 		return (
-			<Suspense fallback={<div>Loading...</div>}>
-				<div className="flex justify-center">
-					<div className="text-center max-w-xl">
-						<h2 className="font-bold text-lg">{'The Recipe of ' + item + ' is not available'}</h2>
-					</div>
+			<div className="flex justify-center">
+				<div className="text-center max-w-xl">
+					<h2 className="font-bold text-lg">{'The Recipe of ' + item + ' is not available'}</h2>
 				</div>
-			</Suspense>
+			</div>
 		)
 	}
 

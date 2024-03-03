@@ -4,12 +4,12 @@ import React from 'react'
 export const runtime = 'nodejs'
 export const fetchCache = 'force-cache'
 // export const dynamic = 'force-dynamic'
-import type { Metadata, ResolvingMetadata } from 'next'
-import { SITE_URL } from '@/lib/utils'
+// import type { Metadata, ResolvingMetadata } from 'next'
+// import { SITE_URL } from '@/lib/utils'
 
-type Props = {
-	params: { item: string }
-}
+// type Props = {
+// 	params: { item: string }
+// }
 
 // export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
 // 	const item = decodeURIComponent(params.item)
@@ -24,7 +24,7 @@ type Props = {
 // 	}
 // }
 
-function Item({ params }: { params: any }) {
+function Item({ params }: { params: { item: string } }) {
 	const item = decodeURIComponent(params.item)
 	return <App item={item} />
 }
