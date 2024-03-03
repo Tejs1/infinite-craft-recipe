@@ -11,18 +11,18 @@ type Props = {
 	params: { item: string }
 }
 
-export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
-	const item = decodeURIComponent(params.item)
+// export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+// 	const item = decodeURIComponent(params.item)
 
-	const data = await fetch(`${SITE_URL}/api/item/${item}`)
-		.then(res => res.json())
-		.catch(err => console.log(err))
-	console.log('data', data)
-	return {
-		title: `Infinite Craft ` + item,
-		description: `Infinite Craft ${item} from ${data?.data[0]} + ${data?.data[1]}`,
-	}
-}
+// 	const data = await fetch(`${SITE_URL}/api/item/${item}`)
+// 		.then(res => res.json())
+// 		.catch(err => console.log(err))
+// 	console.log('data', data)
+// 	return {
+// 		title: `Infinite Craft ` + item,
+// 		description: `Infinite Craft ${item} from ${data?.data[0]} + ${data?.data[1]}`,
+// 	}
+// }
 
 function Item({ params }: { params: any }) {
 	const item = decodeURIComponent(params.item)
