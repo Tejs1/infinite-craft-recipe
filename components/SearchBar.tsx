@@ -57,7 +57,6 @@ export const SearchBar = ({ item }: { item?: string }) => {
 	return (
 		<>
 			<div className="flex gap-3 mt-6">
-				<h3>{`${SITE_URL}/api/items/${query}`}</h3>
 				<Popover open={showItems}>
 					<PopoverAnchor asChild>
 						<div className="w-full bg-white">
@@ -98,6 +97,12 @@ export const SearchBar = ({ item }: { item?: string }) => {
 						</PopoverContent>
 					)}
 				</Popover>
+			</div>
+			<div>
+				<h3>{`${SITE_URL}/api/items/${query}`}</h3>
+				<h3>{`process.env.NEXT_PUBLIC_SITE_URL ` + process.env.NEXT_PUBLIC_SITE_URL}</h3>
+				<h3>{`process.env.NEXT_PUBLIC_VERCEL_URL ` + process.env.NEXT_PUBLIC_VERCEL_URL}</h3>
+				<h3>{`process.env.VERCEL_URL ` + process.env.VERCEL_URL}</h3>
 			</div>
 		</>
 	)
