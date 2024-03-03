@@ -3,14 +3,11 @@ import { items } from '@/data/items'
 import { ElementGraph } from '@/types'
 
 export const GET = async (request: Request, { params }: { params: { item: string } }) => {
-	const path = getPath(params.item)
+	const path = traceElement(params.item)
 	const res = { data: path }
 	return NextResponse.json(res)
 }
 
-const getPath = (item: string) => {
-	return traceElement(item)
-}
 function traceElement(element: string, elementGraph: ElementGraph = {}): ElementGraph | null {
 	const BASE_ARRAY = ['wind', 'earth', 'fire', 'water']
 
