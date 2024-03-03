@@ -6,10 +6,7 @@ export const fetchCache = 'force-cache'
 // export const dynamic = 'force-dynamic'
 import type { Metadata, ResolvingMetadata } from 'next'
 import { SITE_URL } from '@/lib/utils'
-async function findItemConstituents(query: string) {
-	const item = await fetch(`${SITE_URL}/api/item/${query}`)
-	return item
-}
+
 type Props = {
 	params: { item: string }
 }
@@ -17,7 +14,7 @@ type Props = {
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
 	const item = decodeURIComponent(params.item)
 
-	const data = await findItemConstituents(item)
+	const data = await fetch(`${SITE_URL}/api/item/${item}`)
 		.then(res => res.json())
 		.catch(err => console.error(err))
 
