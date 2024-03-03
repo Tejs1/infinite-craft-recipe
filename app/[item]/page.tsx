@@ -15,7 +15,7 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
-	const item = params.item.replace(/%20/g, ' ')
+	const item = decodeURIComponent(params.item)
 
 	const data = await findItemConstituents(item)
 		.then(res => res.json())
@@ -23,15 +23,13 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
 
 	return {
 		title: `Infinite Craft ` + item,
-		// openGraph: {
-		// 	images: ['/some-specific-page-image.jpg', ...previousImages],
-		// },
 		description: `Infinite Craft ${item} from ${data?.data[0]} + ${data?.data[1]}`,
 	}
 }
 
 function Item({ params }: { params: any }) {
-	return <App params={params} />
+	const item = decodeURIComponent(params.item)
+	return <App item={item} />
 }
 
 export default Item

@@ -4,6 +4,7 @@ const keys = Object.keys(items)
 
 export const GET = async (request: Request, { params }: { params: { query: string } }) => {
 	const query = params.query
+	console.log('root in', query)
 	if (!query) return NextResponse.json({ data: null })
 	let i = 0
 	let j = 0

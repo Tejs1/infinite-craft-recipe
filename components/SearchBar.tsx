@@ -7,14 +7,11 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { debounce } from 'lodash'
 import { SITE_URL } from '@/lib/utils'
-async function getMatchingItemKeys(query: string) {
-	const items = await fetch(`${SITE_URL}/api/items/${query}`)
-	return items
-}
 
 export const SearchBar = ({ item }: { item?: string }) => {
 	console.log('hello2', process.env.VERCEL_URL)
 	const [query, setQuery] = useState(item ?? '')
+	const [lastQuery, setLastQuery] = useState<string>('')
 	const [suggestions, setSuggestions] = useState<string[]>([])
 	const [isLoading, setIsLoading] = useState(false)
 	const [showItems, setShowItems] = useState(false)
@@ -30,21 +27,28 @@ export const SearchBar = ({ item }: { item?: string }) => {
 	}
 	const debouncedGetMatchingItemKeys = debounce(
 		(query: string) => {
-			getMatchingItemKeys(query)
-				.then(res => res.json())
-				.then(data => {
-					setSuggestions(data.data)
-					setIsLoading(false)
-				})
+			if (query && !!query.trim() && query !== lastQuery) {
+				setLastQuery(query)
+				fetch(`${SITE_URL}/api/items/${query}`)
+					.then(res => res.json())
+					.then(data => {
+						setSuggestions(data.data)
+						setIsLoading(false)
+					})
+			}
+			setIsLoading(false)
+			console.log('ran', !!query.trim(), !!query)
 		},
+
 		300,
 		{ leading: false, trailing: true },
 	)
 	useEffect(() => {
-		if (!!query) {
+		if (!!query && !!query.trim()) {
 			setIsLoading(true)
-			debouncedGetMatchingItemKeys(query)
+			debouncedGetMatchingItemKeys(query.trim())
 		}
+
 		return () => {
 			debouncedGetMatchingItemKeys.cancel()
 		}
@@ -53,6 +57,7 @@ export const SearchBar = ({ item }: { item?: string }) => {
 	return (
 		<>
 			<div className="flex gap-3 mt-6">
+				<h3>{`${SITE_URL}/api/items/${query}`}</h3>
 				<Popover open={showItems}>
 					<PopoverAnchor asChild>
 						<div className="w-full bg-white">
@@ -60,11 +65,10 @@ export const SearchBar = ({ item }: { item?: string }) => {
 								value={query}
 								onChange={event => {
 									setQuery(event.target.value)
-									setShowItems(event.target.value !== '')
 									setTimeout(() => event.target.focus(), 0)
+									query.trim() !== '' ? setShowItems(event.target.value !== '') : null
 								}}
 								onFocus={event => {
-									setShowItems(true)
 									setTimeout(() => event.target.focus(), 0)
 								}}
 								onKeyDown={event => handleSearch(event)}

@@ -2,7 +2,7 @@
 // import { ElementGraph } from '@/types'
 // const keys = Object.keys(items)
 //replace url with env variable
-export const SITE_URL = process.env.VERCEL_URL ? `${process.env.VERCEL_URL}` : 'http://localhost:3000'
+export const SITE_URL = process.env.VERCEL_URL ? `http://${process.env.VERCEL_URL}` : 'http://localhost:3000'
 
 // export async function getMatchingItemKeys(query: string) {
 // 	const items = await fetch(`${SITE_URL}/api/items/${query}`)
