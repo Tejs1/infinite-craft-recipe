@@ -26,7 +26,8 @@ import Results from '@/components/Results'
 import { SearchBar } from '@/components/SearchBar'
 
 import { SITE_URL } from '@/lib/utils'
-export default async function App({ item }: { item: string }) {
+export default async function Page({ params }: { params: { item: string } }) {
+	const item = decodeURIComponent(params.item)
 	console.log(
 		'VERCEL_URL',
 		process.env.VERCEL_URL,
