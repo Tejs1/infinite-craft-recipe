@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
 
 	const data = await fetch(`${SITE_URL}/api/item/${item}`)
 		.then(res => res.json())
-		.catch(err => console.error(err))
-
+		.catch(err => console.log(err))
+	console.log('data', data)
 	return {
 		title: `Infinite Craft ` + item,
 		description: `Infinite Craft ${item} from ${data?.data[0]} + ${data?.data[1]}`,

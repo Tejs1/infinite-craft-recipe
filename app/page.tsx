@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import Results from '@/components/Results'
 import { SearchBar } from '../components/SearchBar'
-export const runtime = 'nodejs'
+
 import { SITE_URL } from '@/lib/utils'
 export default async function App({ item }: { item: string }) {
 	console.log(

@@ -73,7 +73,7 @@ export const SearchBar = ({ item }: { item?: string }) => {
 							onChange={event => {
 								setQuery(event.target.value)
 								setTimeout(() => event.target.focus(), 0)
-								query.trim() !== '' ? setShowItems(event.target.value !== '') : null
+								setShowItems(event.target.value.trim() !== '')
 							}}
 							onFocus={event => {
 								setTimeout(() => event.target.focus(), 0)
