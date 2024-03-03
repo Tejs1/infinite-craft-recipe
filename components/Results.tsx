@@ -4,11 +4,16 @@ import { ElementGraph } from '@/types'
 import { SITE_URL } from '@/lib/utils'
 import Path from '@/components/Path'
 async function Results({ item }: { item: string }) {
-	const recipe = await fetch(`${SITE_URL}/api/recipe/${item}`)
-	const data = await recipe.json()
-	console.log('recipe', data)
+	const recipe = await fetch(`https://craft.discordtest.workers.dev/?recipe=${item}`).then(res => {
+		if (!res.ok) {
+			console.error('Network response was not ok')
+		} else {
+			return res.json()
+		}
+		return null
+	})
 
-	const path: ElementGraph | null = data.data
+	const path: ElementGraph | null = recipe
 
 	if (item === 'water' || item === 'fire' || item === 'earth' || item === 'wind') {
 		return (
