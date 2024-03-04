@@ -19,6 +19,11 @@ export const SearchBar = ({ item }: { item?: string }) => {
 		'SITE_URL',
 		SITE_URL,
 	)
+	//get url from url bar and set it as the default value
+	let url = { hostname: 'localhost' }
+	if (typeof window !== 'undefined') {
+		url = new URL(window.location.href)
+	}
 	const [query, setQuery] = useState(item ?? '')
 	const [lastQuery, setLastQuery] = useState<string>('')
 	const [suggestions, setSuggestions] = useState<string[]>([])
@@ -65,6 +70,7 @@ export const SearchBar = ({ item }: { item?: string }) => {
 
 	return (
 		<div className="flex gap-3 mt-6">
+			{url.hostname}
 			<Popover open={showItems}>
 				<PopoverAnchor asChild>
 					<div className="w-full bg-white">

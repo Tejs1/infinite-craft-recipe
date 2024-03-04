@@ -4,7 +4,9 @@ import { ElementGraph } from '@/types'
 import { SITE_URL } from '@/lib/utils'
 import Path from '@/components/Path'
 async function Results({ item }: { item: string }) {
-	const recipe = await fetch(`https://craft.discordtest.workers.dev/?recipe=${item}`).then(res => {
+	const decodedItem = decodeURIComponent(item)
+	console.log('decodedItem', decodedItem)
+	const recipe = await fetch(`https://craft.discordtest.workers.dev/?recipe=${decodedItem}`).then(res => {
 		if (!res.ok) {
 			console.error('Network response was not ok')
 		} else {
