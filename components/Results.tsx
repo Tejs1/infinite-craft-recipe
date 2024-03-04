@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { ElementGraph } from '@/types'
 // import { getRecipe } from '@/lib/utils'
-// import { SITE_URL } from '@/lib/utils'
+
 import Path from '@/components/Path'
 async function Results({ item }: { item: string }) {
 	const decodedItem = decodeURIComponent(item)

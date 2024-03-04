@@ -53,58 +53,47 @@ export const SearchBar = ({ item }: { item?: string }) => {
 	}, [debouncedGetMatchingItemKeys, query])
 
 	return (
-		<div>
-			<div className="flex gap-3 mt-6">
-				<Popover open={showItems}>
-					<PopoverAnchor asChild>
-						<div className="w-full bg-white">
-							<Input
-								value={query}
-								onChange={event => {
-									setQuery(event.target.value)
-									setTimeout(() => event.target.focus(), 0)
-									setShowItems(event.target.value.trim() !== '')
-								}}
-								onFocus={event => {
-									setTimeout(() => event.target.focus(), 0)
-								}}
-								onKeyDown={event => handleSearch(event)}
-								placeholder="Search for an item"
-								className="w-full"
-							/>
-						</div>
-					</PopoverAnchor>
-					{query && (
-						<PopoverContent>
-							{suggestions.map(item => (
-								<Link href={`/${item}`} key={item}>
-									<div
-										key={item}
-										className="py-2 px-2	 cursor-pointer bg-white hover:bg-gray-100"
-										onClick={() => {
-											setShowItems(false)
-											setQuery(item)
-										}}
-									>
-										{item}
-									</div>
-								</Link>
-							))}
-							{isLoading && <div className="p-2 text-center">Loading...</div>}
-							{suggestions.length === 0 && !isLoading && <div className="p-2 text-center">No items found</div>}
-						</PopoverContent>
-					)}
-				</Popover>
-			</div>
-			<div>
-				<h3>{`VERCEL_URL : ` + process.env.VERCEL_URL}</h3>
-				<h3>{`NEXT_PUBLIC_VERCEL_URL : ` + process.env.NEXT_PUBLIC_VERCEL_URL}</h3>
-				<h3>{`NEXT_PUBLIC_SITE_URL : ` + process.env.NEXT_PUBLIC_SITE_URL}</h3>
-				<h3>{`NODE_ENV : ` + process.env.NODE_ENV}</h3>
-				<h3>{`NEXT_PUBLIC_URL : ` + process.env.NEXT_PUBLIC_URL}</h3>
-				<h3>{`MY_ENV : ` + process.env.MY_ENV}</h3>
-				<h3>{`NEXT_PUBLIC_MY_ENV : ` + process.env.NEXT_PUBLIC_MY_ENV}</h3>
-			</div>
+		<div className="flex gap-3 mt-6">
+			<Popover open={showItems}>
+				<PopoverAnchor asChild>
+					<div className="w-full bg-white">
+						<Input
+							value={query}
+							onChange={event => {
+								setQuery(event.target.value)
+								setTimeout(() => event.target.focus(), 0)
+								setShowItems(event.target.value.trim() !== '')
+							}}
+							onFocus={event => {
+								setTimeout(() => event.target.focus(), 0)
+							}}
+							onKeyDown={event => handleSearch(event)}
+							placeholder="Search for an item"
+							className="w-full"
+						/>
+					</div>
+				</PopoverAnchor>
+				{query && (
+					<PopoverContent>
+						{suggestions.map(item => (
+							<Link href={`/${item}`} key={item}>
+								<div
+									key={item}
+									className="py-2 px-2	 cursor-pointer bg-white hover:bg-gray-100"
+									onClick={() => {
+										setShowItems(false)
+										setQuery(item)
+									}}
+								>
+									{item}
+								</div>
+							</Link>
+						))}
+						{isLoading && <div className="p-2 text-center">Loading...</div>}
+						{suggestions.length === 0 && !isLoading && <div className="p-2 text-center">No items found</div>}
+					</PopoverContent>
+				)}
+			</Popover>
 		</div>
 	)
 }
