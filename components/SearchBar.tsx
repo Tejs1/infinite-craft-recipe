@@ -1,29 +1,13 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Input } from './ui/input'
 import { Popover, PopoverContent } from './ui/popover'
 import { PopoverAnchor } from '@radix-ui/react-popover'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { debounce } from 'lodash'
-import { SITE_URL } from '@/lib/utils'
 
 export const SearchBar = ({ item }: { item?: string }) => {
-	console.log(
-		'VERCEL_URL',
-		process.env.VERCEL_URL,
-		'NEXT_PUBLIC_VERCEL_URL',
-		process.env.NEXT_PUBLIC_VERCEL_URL,
-		'NEXT_PUBLIC_SITE_URL',
-		process.env.NEXT_PUBLIC_SITE_URL,
-		'SITE_URL',
-		SITE_URL,
-	)
-	//get url from url bar and set it as the default value
-	let url = { hostname: 'localhost' }
-	if (typeof window !== 'undefined') {
-		url = new URL(window.location.href)
-	}
 	const [query, setQuery] = useState(item ?? '')
 	const [lastQuery, setLastQuery] = useState<string>('')
 	const [suggestions, setSuggestions] = useState<string[]>([])
@@ -39,11 +23,12 @@ export const SearchBar = ({ item }: { item?: string }) => {
 			setShowItems(false)
 		}
 	}
+
 	const debouncedGetMatchingItemKeys = debounce(
 		(query: string) => {
 			if (query && !!query.trim() && query !== lastQuery) {
 				setLastQuery(query)
-				fetch(`${SITE_URL}/api/items/${query}`)
+				fetch(`/api/items/${query}`)
 					.then(res => res.json())
 					.then(data => {
 						setSuggestions(data.data)
@@ -51,7 +36,6 @@ export const SearchBar = ({ item }: { item?: string }) => {
 					})
 			}
 			setIsLoading(false)
-			console.log('ran', !!query.trim(), !!query)
 		},
 
 		300,
@@ -66,51 +50,61 @@ export const SearchBar = ({ item }: { item?: string }) => {
 		return () => {
 			debouncedGetMatchingItemKeys.cancel()
 		}
-	}, [query])
+	}, [debouncedGetMatchingItemKeys, query])
 
 	return (
-		<div className="flex gap-3 mt-6">
-			{url.hostname}
-			<Popover open={showItems}>
-				<PopoverAnchor asChild>
-					<div className="w-full bg-white">
-						<Input
-							value={query}
-							onChange={event => {
-								setQuery(event.target.value)
-								setTimeout(() => event.target.focus(), 0)
-								setShowItems(event.target.value.trim() !== '')
-							}}
-							onFocus={event => {
-								setTimeout(() => event.target.focus(), 0)
-							}}
-							onKeyDown={event => handleSearch(event)}
-							placeholder="Search for an item"
-							className="w-full"
-						/>
-					</div>
-				</PopoverAnchor>
-				{query && (
-					<PopoverContent>
-						{suggestions.map(item => (
-							<Link href={`/${item}`} key={item}>
-								<div
-									key={item}
-									className="py-2 px-2	 cursor-pointer bg-white hover:bg-gray-100"
-									onClick={() => {
-										setShowItems(false)
-										setQuery(item)
-									}}
-								>
-									{item}
-								</div>
-							</Link>
-						))}
-						{isLoading && <div className="p-2 text-center">Loading...</div>}
-						{suggestions.length === 0 && !isLoading && <div className="p-2 text-center">No items found</div>}
-					</PopoverContent>
-				)}
-			</Popover>
+		<div>
+			<div className="flex gap-3 mt-6">
+				<Popover open={showItems}>
+					<PopoverAnchor asChild>
+						<div className="w-full bg-white">
+							<Input
+								value={query}
+								onChange={event => {
+									setQuery(event.target.value)
+									setTimeout(() => event.target.focus(), 0)
+									setShowItems(event.target.value.trim() !== '')
+								}}
+								onFocus={event => {
+									setTimeout(() => event.target.focus(), 0)
+								}}
+								onKeyDown={event => handleSearch(event)}
+								placeholder="Search for an item"
+								className="w-full"
+							/>
+						</div>
+					</PopoverAnchor>
+					{query && (
+						<PopoverContent>
+							{suggestions.map(item => (
+								<Link href={`/${item}`} key={item}>
+									<div
+										key={item}
+										className="py-2 px-2	 cursor-pointer bg-white hover:bg-gray-100"
+										onClick={() => {
+											setShowItems(false)
+											setQuery(item)
+										}}
+									>
+										{item}
+									</div>
+								</Link>
+							))}
+							{isLoading && <div className="p-2 text-center">Loading...</div>}
+							{suggestions.length === 0 && !isLoading && <div className="p-2 text-center">No items found</div>}
+						</PopoverContent>
+					)}
+				</Popover>
+			</div>
+			<div>
+				<h3>{`VERCEL_URL : ` + process.env.VERCEL_URL}</h3>
+				<h3>{`NEXT_PUBLIC_VERCEL_URL : ` + process.env.NEXT_PUBLIC_VERCEL_URL}</h3>
+				<h3>{`NEXT_PUBLIC_SITE_URL : ` + process.env.NEXT_PUBLIC_SITE_URL}</h3>
+				<h3>{`NODE_ENV : ` + process.env.NODE_ENV}</h3>
+				<h3>{`NEXT_PUBLIC_URL : ` + process.env.NEXT_PUBLIC_URL}</h3>
+				<h3>{`MY_ENV : ` + process.env.MY_ENV}</h3>
+				<h3>{`NEXT_PUBLIC_MY_ENV : ` + process.env.NEXT_PUBLIC_MY_ENV}</h3>
+			</div>
 		</div>
 	)
 }
