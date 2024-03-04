@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
 
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 	keywords: ['Infinite ', 'Recipe', 'Craft Solver', 'Infinite Craft Recipe'],
 	authors: [{ name: 'Tejas' }, { name: 'Tejas', url: 'https://twitter.com/tejsrelax' }],
 	creator: 'Tejas Thorat',
-	publisher: 'Sebastian Markbåge',
+	publisher: 'Tejas Thorat',
 	robots: 'index, follow',
 }
 
@@ -38,6 +39,7 @@ export default function RootLayout({
 					</main>
 				</>
 				<SpeedInsights />
+				<Analytics mode={'production'} />;
 			</body>
 		</html>
 	)
