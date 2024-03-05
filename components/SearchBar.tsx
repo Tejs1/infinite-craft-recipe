@@ -34,8 +34,8 @@ export const SearchBar = ({ item }: { item?: string }) => {
 		) {
 			setIsLoading(true)
 			setSuggestions([])
-			setLastQuery(debouncedQuery)
-			fetch(`/api/items/${debouncedQuery}`)
+			setLastQuery(debouncedQuery.trim())
+			fetch(`/api/items/${debouncedQuery.trim()}`)
 				.then(res => res.json())
 				.then(data => {
 					setSuggestions(data.data)
