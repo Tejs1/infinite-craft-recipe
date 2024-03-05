@@ -1,6 +1,6 @@
 // const { items, itemKeys } = require('./items')
 
-// const fs = require('fs')
+// import fs from "fs";
 // const writeToFile = (fileName, data) => {
 // 	const jsonData = JSON.stringify(data)
 // 	fs.writeFile(fileName, jsonData, err => {
@@ -152,3 +152,43 @@
 // const a = 'fire'
 // const b = 'goat'
 // fetchData(`https://neal.fun/api/infinite-craft/pair?first=${b}&second=${a}`).then(data => console.log(data))
+
+// import { items } from "./items";
+// import { keyMap } from "./keyMap";
+
+// // convert obj keys to string
+// const recipesKeys = Object.keys(items).map((key) => key.toLowerCase());
+// const keysMap: { [key: string]: string } = {};
+// Object.keys(items).forEach(
+//   (KEY) => (keysMap[KEY.toLowerCase()] = KEY.toString())
+// );
+// fs.writeFileSync("./recipesKeys.js", JSON.stringify(keysMap));
+
+// convert all obj with key val to lowercase
+// const normalItems: { [key: string]: string[] } = {};
+// Object.keys(items).forEach((key) => {
+//   const first = items[key][0].toLowerCase();
+//   const second = items[key][1].toLowerCase();
+//   const keyString = key.toLowerCase();
+//   normalItems[keyString] = [first, second];
+// });
+// fs.writeFileSync("./normalItems.js", JSON.stringify(normalItems));
+
+//convert obj to original case
+
+// const obj = { sand: ["earth", "wave"], wave: ["water", "wind"] };
+// function convertToOriginalCase(
+//   obj: { [key: string]: string[] },
+//   keyMap: { [key: string]: string }
+// ) {
+//   const originalItems: { [key: string]: string[] } = {};
+//   Object.keys(obj).forEach((key) => {
+//     const [first, second] = obj[key];
+//     const originalFirst = keyMap[first];
+//     const originalSecond = keyMap[second];
+//     const keyString = keyMap[key];
+//     originalItems[keyString] = [originalFirst, originalSecond];
+//   });
+//   return originalItems;
+// }
+// console.log(convertToOriginalCase(obj, keyMap));

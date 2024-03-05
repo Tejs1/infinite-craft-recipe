@@ -2,14 +2,21 @@ import { NextResponse } from 'next/server'
 import { items } from '@/data/items'
 const keys = Object.keys(items)
 
-export const GET = async (request: Request, { params }: { params: { query: string } }) => {
+export const GET = async (
+	request: Request,
+	{ params }: { params: { query: string } },
+) => {
 	const query = params.query
 
 	if (!query) return NextResponse.json({ data: null })
-	let i = 0
-	let j = 0
-	const includesArray = keys.filter(key => key.includes(query)).slice(0, 5)
-	const startsWithArray = keys.filter(key => key.startsWith(query)).slice(0, 5)
+	// let i = 0
+	// let j = 0
+	const includesArray = keys
+		.filter(key => key.toLowerCase().includes(query.toLowerCase()))
+		.slice(0, 5)
+	const startsWithArray = keys
+		.filter(key => key.toLowerCase().startsWith(query.toLowerCase()))
+		.slice(0, 5)
 
 	// for (let index = 0; i < 5 || index < keys.length; index++) {
 	// 	if (keys[index].includes(query)) {
