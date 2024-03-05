@@ -1,11 +1,11 @@
 'use client'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Input } from './ui/input'
 import { Popover, PopoverContent } from './ui/popover'
 import { PopoverAnchor } from '@radix-ui/react-popover'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { debounce } from 'lodash'
+import { useDebounce } from 'use-debounce'
 
 export const SearchBar = ({ item }: { item?: string }) => {
 	const [query, setQuery] = useState(item ?? '')
@@ -24,33 +24,30 @@ export const SearchBar = ({ item }: { item?: string }) => {
 		}
 	}
 
-	const debouncedGetMatchingItemKeys = debounce(
-		(query: string) => {
-			if (query && !!query.trim() && query !== lastQuery) {
-				setLastQuery(query)
-				fetch(`/api/items/${query}`)
-					.then(res => res.json())
-					.then(data => {
-						setSuggestions(data.data)
-						setIsLoading(false)
-					})
-			}
-			setIsLoading(false)
-		},
+	const [debouncedQuery] = useDebounce(query, 300)
 
-		300,
-		{ leading: false, trailing: true },
-	)
 	useEffect(() => {
-		if (!!query && !!query.trim()) {
+		if (
+			debouncedQuery &&
+			!!debouncedQuery.trim() &&
+			debouncedQuery !== lastQuery
+		) {
 			setIsLoading(true)
-			debouncedGetMatchingItemKeys(query.trim())
+			setSuggestions([])
+			setLastQuery(debouncedQuery)
+			fetch(`/api/items/${debouncedQuery}`)
+				.then(res => res.json())
+				.then(data => {
+					setSuggestions(data.data)
+					setIsLoading(false)
+				})
+				.catch(() => {
+					setIsLoading(false)
+				})
 		}
+	}, [debouncedQuery, lastQuery])
 
-		return () => {
-			debouncedGetMatchingItemKeys.cancel()
-		}
-	}, [debouncedGetMatchingItemKeys, query])
+	// ...
 
 	return (
 		<div className="flex gap-3 mt-6">
@@ -90,7 +87,15 @@ export const SearchBar = ({ item }: { item?: string }) => {
 							</Link>
 						))}
 						{isLoading && <div className="p-2 text-center">Loading...</div>}
-						{suggestions.length === 0 && !isLoading && <div className="p-2 text-center">No items found</div>}
+						{suggestions.length === 0 && !isLoading && (
+							<div
+								className="w-full p-2 text-center inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2  bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2  ease-in-out duration-300
+								hover:scale-105"
+								onClick={() => setQuery('')}
+							>
+								No items found Clear Search
+							</div>
+						)}
 					</PopoverContent>
 				)}
 			</Popover>
