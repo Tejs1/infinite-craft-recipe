@@ -55,6 +55,8 @@ export const SearchBar = ({ item }: { item?: string }) => {
 				<PopoverAnchor asChild>
 					<div className="w-full bg-white">
 						<Input
+							type="search"
+							aria-label="Search for an item"
 							value={query}
 							onChange={event => {
 								setQuery(event.target.value)

@@ -2,7 +2,11 @@
 import React from 'react'
 import { Button } from './button'
 import { Copy } from 'lucide-react'
-export function ClientButton({ steps }: { steps: { result: string; first: string; second: string }[] }) {
+export function ClientButton({
+	steps,
+}: {
+	steps: { result: string; first: string; second: string }[]
+}) {
 	return (
 		<Button
 			onClick={() => {
@@ -16,6 +20,7 @@ export function ClientButton({ steps }: { steps: { result: string; first: string
 				)
 			}}
 			className="flex items-center gap-2"
+			aria-label="Copy to clipboard"
 		>
 			<Copy size={14} />
 			Copy to clipboard

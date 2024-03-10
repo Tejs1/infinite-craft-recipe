@@ -54,5 +54,8 @@
 	}
 	body {
 		@apply bg-background text-foreground;
+		@apply dark:bg-background dark:text-foreground;
+		@apply dark:border-border;
+		@apply font-inter;
 	}
 }

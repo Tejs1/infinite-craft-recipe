@@ -5,12 +5,14 @@ import { SearchBar } from '@/components/SearchBar'
 // import { SITE_URL } from '@/lib/utils'
 export default async function Page() {
 	return (
-		<>
-			<section className="w-full flex justify-center items-center flex-col">
-				<SearchBar />
-			</section>
-
-			<h3>{process.env.VERCEL_URL}</h3>
-		</>
+		<section
+			aria-labelledby="search-heading"
+			className="w-full flex justify-center items-center flex-col"
+		>
+			<h2 id="search-heading" className="sr-only">
+				Item Search
+			</h2>
+			<SearchBar />
+		</section>
 	)
 }

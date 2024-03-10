@@ -26,14 +26,12 @@ async function Results({ item }: { item: string }) {
 		item === 'wind'
 	) {
 		return (
-			<div className="flex justify-center">
-				<div className="text-center max-w-xl">
-					<h2 className="font-bold text-lg">{item.toUpperCase()}</h2>
-					<div className="text-zinc-500 font-medium text-sm mt-3">
-						{item + ' is A Basic Element'}
-					</div>
+			<article className="text-center max-w-xl flex justify-center">
+				<h2 className="font-bold text-lg">{item.toUpperCase()}</h2>
+				<div className="text-zinc-500 font-medium text-sm mt-3">
+					{item + ' is A Basic Element'}
 				</div>
-			</div>
+			</article>
 		)
 	}
 
@@ -43,13 +41,11 @@ async function Results({ item }: { item: string }) {
 		path[Object.keys(path)[0]].length === 0
 	) {
 		return (
-			<div className="flex justify-center">
-				<div className="text-center max-w-xl">
-					<h2 className="font-bold text-lg">
-						{'The Recipe of ' + item + ' is not available'}
-					</h2>
-				</div>
-			</div>
+			<article className="text-center max-w-xl flex justify-center">
+				<h2 className="font-bold text-lg">
+					{'The Recipe of ' + item + ' is not available'}
+				</h2>
+			</article>
 		)
 	}
 
@@ -60,17 +56,15 @@ async function Results({ item }: { item: string }) {
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
 			{!path && (
-				<div className="flex justify-center">
-					<div className="text-center max-w-xl">
-						<h2 className="font-bold text-lg">Item not found</h2>
+				<article className="text-center max-w-xl flex justify-center">
+					<h2 className="font-bold text-lg">Item not found</h2>
 
-						<div className="text-zinc-500 font-medium text-sm mt-3">
-							We are constantly searching new recipes but couldn&apos;t find
-							this item in our database yet. You might want to check again later
-							to see if we have discovered it.
-						</div>
+					<div className="text-zinc-500 font-medium text-sm mt-3">
+						We are constantly searching new recipes but couldn&apos;t find this
+						item in our database yet. You might want to check again later to see
+						if we have discovered it.
 					</div>
-				</div>
+				</article>
 			)}
 			{path && <Path steps={stepsArray} />}
 		</Suspense>

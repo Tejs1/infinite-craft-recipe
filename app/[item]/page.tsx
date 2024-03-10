@@ -30,11 +30,22 @@ export default async function Page({ params }: { params: { item: string } }) {
 
 	return (
 		<>
-			<section className="w-full flex justify-center items-center flex-col">
+			<section
+				aria-labelledby="search-heading"
+				className="w-full flex justify-center items-center flex-col"
+			>
+				<h2 id="search-heading" className="sr-only">
+					Item Search
+				</h2>
 				<SearchBar item={item} />
 			</section>
 			<Suspense fallback={<div>Loading...</div>}>
-				<section className="w-full flex justify-center items-center">{item && <Results item={item} />} </section>
+				<section
+					aria-labelledby="crafting-steps-heading"
+					className="w-full flex justify-center items-center"
+				>
+					{item && <Results item={item} />}
+				</section>
 			</Suspense>
 		</>
 	)
