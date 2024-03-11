@@ -1,19 +1,46 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 import './globals.css'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-	title: 'Infinite Craft Solver',
-	description: 'Find the fastest crafting paths in Infinite Craft',
+	title: 'Infinite Craft Recipe - Discover Fast Crafting Paths',
+	description:
+		'Explore the fastest ways to craft items in Infinite Craft. Utilize our solver to get quick answers for crafting recipes and strategies.',
 	generator: 'Next.js',
-	applicationName: 'Infinite Craft Solver',
+	applicationName: 'Infinite Craft Recipe',
 	referrer: 'origin-when-cross-origin',
-	keywords: ['Infinite ', 'Recipe', 'Craft Solver', 'Infinite Craft Recipe'],
+	keywords: [
+		'Infinite ',
+		'Recipe',
+		'Craft',
+		'solver',
+		'browser',
+		'browser game',
+		'Craft Solver',
+		'Craft Answers',
+		'Craft Recipe',
+		'Infinite Craft Recipe',
+		'Infinite Craft Solver',
+		'Infinite Craft',
+		'Infinite Craft Solver',
+		'Infinite Craft Browser',
+		'infinite craft recipe',
+		'Crafting Recipes',
+		'Game Crafting Guide',
+		'Online Crafting Tool',
+		'Crafting Game Solver',
+		'Recipe Finder',
+		'Crafting Strategies',
+		'Game Recipes',
+		'Infinite Craft Guide',
+		'Crafting Tips',
+		'Browser Game Crafting',
+	],
 	authors: [
 		{ name: 'Tejas' },
 		{ name: 'Tejas', url: 'https://twitter.com/tejsrelax' },
