@@ -48,6 +48,7 @@ export const metadata: Metadata = {
 	creator: 'Tejas Thorat',
 	publisher: 'Tejas Thorat',
 	robots: 'index, follow',
+	verification: { google: '94lvWfeQMJYpjC7RF4mTCzwWzeJ_gSdYFsdZHZ9LD-E' },
 }
 
 export default function RootLayout({
