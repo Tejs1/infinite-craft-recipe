@@ -39,3 +39,5 @@ yarn-error.log*
 next-env.d.ts
 /app/*/*/*/*.js
 data/script.js
+data/items.js
+data/items.json

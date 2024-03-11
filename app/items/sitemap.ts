@@ -12,7 +12,6 @@ export async function generateSitemaps() {
 		{ id: 7 },
 		{ id: 8 },
 		{ id: 9 },
-		{ id: 10 },
 	]
 }
 
@@ -27,7 +26,7 @@ export default function sitemap({ id }: { id: number }): MetadataRoute.Sitemap {
 		if (isNaN(Number(item))) Items.push(encodeURIComponent(item))
 	})
 	// get items for this sitemap
-	const length = Items.length / 10
+	const length = Items.length / 9
 	const start = (id - 1) * length
 	const end = start + length
 	const slicedItems = Items.slice(start, end)
