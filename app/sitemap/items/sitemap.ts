@@ -1,9 +1,9 @@
 import { MetadataRoute } from 'next'
 import { items } from '@/data/items'
-export async function generateSitemaps() {
-	// Fetch the total number of products and calculate the number of sitemaps needed
-	return [{ id: 1 }]
-}
+// export async function generateSitemaps() {
+// 	// Fetch the total number of products and calculate the number of sitemaps needed
+// 	return [{ id: 1 }]
+// }
 
 export default async function sitemap({
 	id,
@@ -24,6 +24,6 @@ export default async function sitemap({
 		url: `https://infinitecraftrecipe.vercel.app/${Item}`,
 		lastModified: new Date(),
 		changeFrequency: 'never',
-		priority: 1,
+		priority: 0.7,
 	}))
 }
