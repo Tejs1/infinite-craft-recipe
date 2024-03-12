@@ -49,6 +49,33 @@ export const metadata: Metadata = {
 	publisher: 'Tejas Thorat',
 	robots: 'index, follow',
 	verification: { google: '94lvWfeQMJYpjC7RF4mTCzwWzeJ_gSdYFsdZHZ9LD-E' },
+	openGraph: {
+		type: 'website',
+		url: 'https://infinitecraftrecipe.vercel.app/',
+		title: 'Infinite Craft Recipe',
+		description:
+			'Explore the fastest ways to craft items in Infinite Craft. Utilize our solver to get quick answers for crafting recipes and strategies.',
+		siteName: 'Infinite Craft Recipe',
+		images: [
+			{
+				url: 'https://infinitecraftrecipe.vercel.app/black.ico',
+			},
+		],
+	},
+	icons: {
+		icon: [
+			{
+				media: '(prefers-color-scheme: light)',
+				url: '/black.ico',
+				href: '/black.ico',
+			},
+			{
+				media: '(prefers-color-scheme: dark)',
+				url: '/white.ico',
+				href: '/white.ico',
+			},
+		],
+	},
 }
 
 export default function RootLayout({
