@@ -4,9 +4,9 @@ const keys = Object.keys(items)
 
 export const GET = async (
 	request: Request,
-	{ params }: { params: { query: string } },
+	{ params }: { params: Promise<{ query: string }> },
 ) => {
-	const query = params.query
+	const query = (await params).query
 
 	if (!query) return NextResponse.json({ data: null })
 	// let i = 0

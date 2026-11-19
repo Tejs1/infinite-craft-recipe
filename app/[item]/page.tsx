@@ -25,8 +25,8 @@ import React, { Suspense } from 'react'
 import Results from '@/components/Results'
 import { SearchBar } from '@/components/SearchBar'
 
-export default async function Page({ params }: { params: { item: string } }) {
-	const item = decodeURIComponent(params.item)
+export default async function Page({ params }: { params: Promise<{ item: string }> }) {
+	const item = decodeURIComponent((await params).item)
 
 	return (
 		<>
