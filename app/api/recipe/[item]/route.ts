@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server'
 import { items } from '@/data/items'
 import { ElementGraph } from '@/types'
 
-export const GET = async (request: Request, { params }: { params: { item: string } }) => {
-	const path = traceElement(params.item)
+export const GET = async (request: Request, { params }: { params: Promise<{ item: string }> }) => {
+	const path = traceElement((await params).item)
 	const res = { data: path }
 	return NextResponse.json(res)
 }
